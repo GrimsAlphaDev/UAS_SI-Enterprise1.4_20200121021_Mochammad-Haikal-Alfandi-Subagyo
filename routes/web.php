@@ -1,5 +1,6 @@
 <?php
 
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -14,11 +15,21 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('welcomepage');
 });
 
-Route::get('/dashboard', function () {
+Route::get('/dashboarddosen', function () {
     return view('dashboard');
-})->middleware(['auth'])->name('dashboard');
+})->middleware(['dosen'])->name('dashboard');
+
+Route::get('/dashboard', function(){
+    return "afa iyah";
+})->middleware('mahasiswa');
+
+// delete session
+Route::get('/logout', function(){
+    Auth::logout();
+    return redirect('/');
+})->name('logout');
 
 require __DIR__.'/auth.php';

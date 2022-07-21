@@ -17,7 +17,7 @@ class AuthenticatedSessionController extends Controller
      */
     public function create()
     {
-        return view('auth.login');
+        return view('authen.login');
     }
 
     /**
@@ -32,7 +32,14 @@ class AuthenticatedSessionController extends Controller
 
         $request->session()->regenerate();
 
-        return redirect()->intended(RouteServiceProvider::HOME);
+        // If the user role is 'dosen', redirect to the dosen dashboard.
+        if (Auth::user()->role == 'dosen') {
+            return redirect(RouteServiceProvider::Dashboard_dosen);
+        } else if 
+        // If the user role is 'mahasiswa', redirect to the mahasiswa dashboard.
+         (Auth::user()->role == 'mahasiswa') {
+            return redirect(RouteServiceProvider::Dashboard_mhs);
+        }
     }
 
     /**
