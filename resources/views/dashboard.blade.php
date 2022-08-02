@@ -6,6 +6,7 @@
     <div class="row mb-2">
         <div class="col">
                 <h2 class="text-white">Welcome, {{ Auth::user()->name }}</h2>
+                
         </div>
     </div>
     <div class="row">
