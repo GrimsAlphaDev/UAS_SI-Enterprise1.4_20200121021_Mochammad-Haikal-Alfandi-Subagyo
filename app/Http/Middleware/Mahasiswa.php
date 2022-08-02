@@ -20,5 +20,6 @@ class Mahasiswa
             return $next($request);
         }
         return redirect('/');
+        
     }
 }

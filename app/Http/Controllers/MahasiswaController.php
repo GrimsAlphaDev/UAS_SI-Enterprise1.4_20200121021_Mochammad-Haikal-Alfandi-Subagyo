@@ -8,14 +8,22 @@ use App\Http\Requests\UpdateMahasiswaRequest;
 
 class MahasiswaController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
+
+     
     public function index()
     {
-        //
+        return view('mahasiswa.index', [
+            'mahasiswas' => Mahasiswa::all(),
+        ]);
     }
 
     /**
@@ -36,7 +44,35 @@ class MahasiswaController extends Controller
      */
     public function store(StoreMahasiswaRequest $request)
     {
-        //
+        // validate request
+        $request->validate([
+            'nama_mahasiswa' => 'required|string|max:255',
+            'alamat' => 'required|string|max:255',
+            'no_tlp' => 'required|numeric',
+            'email' => 'required|string|email|max:255|unique:mahasiswas',
+        ]);
+
+        // create mahasiswa
+        try {
+            $mahasiswa = Mahasiswa::create([
+            'nama_mahasiswa' => $request->nama_mahasiswa,
+            'alamat' => $request->alamat,
+            'no_tlp' => $request->no_tlp,
+            'email' => $request->email,
+        ]);
+        } catch (\Exception $e) {
+            return $e->getMessage();
+        }
+
+        // if success, redirect to mahasiswa index
+        if($mahasiswa) {
+            return redirect()->route('mahasiswa.index')->with('success', 'Mahasiswa berhasil ditambahkan');
+        } else {
+            return redirect()->back()->with('error', 'Mahasiswa gagal ditambahkan');
+        }
+       
+
+
     }
 
     /**

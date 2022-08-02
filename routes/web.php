@@ -1,7 +1,10 @@
 <?php
 
+use App\Http\Controllers\MahasiswaController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
+use LDAP\Result;
+use phpDocumentor\Reflection\Types\Resource_;
 
 /*
 |--------------------------------------------------------------------------
@@ -27,5 +30,10 @@ Route::get('/logout', function(){
     Auth::logout();
     return redirect('/');
 })->name('logout');
+
+Route::middleware('auth')->group(function () {
+    // resouce route
+    Route::resource('/mahasiswa', MahasiswaController::class);
+});
 
 require __DIR__.'/auth.php';

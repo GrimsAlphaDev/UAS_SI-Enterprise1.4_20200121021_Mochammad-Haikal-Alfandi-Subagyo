@@ -12,14 +12,13 @@
     <div class="row">
         <div class="col-xl-4 col-lg-12">
             <div class="card card-chart">
-                <div class="card-header card-header-success">
-                    <div class="ct-chart" id="dailySalesChart"></div>
+                <div class="card-header card-header-success p-1">
+                    <img src="{{ url('assets/img/stockimage/student.jpg') }}" alt="Students" class="w-100" style="height: 185px;">
                 </div>
                 <div class="card-body">
-                    <h4 class="card-title">Daily Sales</h4>
+                    <h4 class="card-title">Mahasiswa</h4>
                     <p class="card-category">
-                        <span class="text-success"><i class="fa fa-long-arrow-up"></i> 55% </span>
-                        increase in today sales.
+                        <a class="text-success" href="">Pergi Ke Page Mahasiswa</a>
                     </p>
                 </div>
                 <div class="card-footer">
@@ -31,12 +30,14 @@
         </div>
         <div class="col-xl-4 col-lg-12">
             <div class="card card-chart">
-                <div class="card-header card-header-warning">
-                    <div class="ct-chart" id="websiteViewsChart"></div>
+                <div class="card-header card-header-warning p-1">
+                    <img src="{{ url('assets/img/stockimage/books.jpg') }}" alt="books" class="w-100">
                 </div>
                 <div class="card-body">
-                    <h4 class="card-title">Email Subscriptions</h4>
-                    <p class="card-category">Last Campaign Performance</p>
+                    <h4 class="card-title">Matakuliah</h4>
+                    <p class="card-category">
+                        <a class="text-warning" href=""> Pergi Ke Page Matakuliah</a>
+                    </p>
                 </div>
                 <div class="card-footer">
                     <div class="stats">
@@ -47,12 +48,12 @@
         </div>
         <div class="col-xl-4 col-lg-12">
             <div class="card card-chart">
-                <div class="card-header card-header-danger">
-                    <div class="ct-chart" id="completedTasksChart"></div>
+                <div class="card-header card-header-danger p-1">
+                    <img src="{{ url('assets/img/stockimage/time.jpg') }}" alt="time" class="w-100">
                 </div>
                 <div class="card-body">
-                    <h4 class="card-title">Completed Tasks</h4>
-                    <p class="card-category">Last Campaign Performance</p>
+                    <h4 class="card-title">Jadwal</h4>
+                    <a class="text-danger" href=""> Pergi Ke Page Jadwal</a>
                 </div>
                 <div class="card-footer">
                     <div class="stats">
