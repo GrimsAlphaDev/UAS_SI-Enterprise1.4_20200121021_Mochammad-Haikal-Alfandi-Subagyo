@@ -15,4 +15,14 @@ class Mahasiswa extends Model
         'no_tlp',
         'email',
     ];
+
+    public function absens()
+    {
+        return $this->hasMany(Absen::class);
+    }
+
+    public function kontrak_matakuliah()
+    {
+        return $this->hasMany(Kontrak_matakuliah::class);
+    }
 }
