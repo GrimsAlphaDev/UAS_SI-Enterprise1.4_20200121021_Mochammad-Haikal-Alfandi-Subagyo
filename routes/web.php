@@ -18,13 +18,9 @@ Route::get('/', function () {
     return view('welcomepage');
 });
 
-Route::get('/dashboarddosen', function () {
+Route::get('/dashboard', function () {
     return view('dashboard');
-})->middleware(['dosen'])->name('dashboard');
-
-Route::get('/dashboard', function(){
-    return "afa iyah";
-})->middleware('mahasiswa');
+})->middleware(['auth'])->name('dashboard');
 
 // delete session
 Route::get('/logout', function(){

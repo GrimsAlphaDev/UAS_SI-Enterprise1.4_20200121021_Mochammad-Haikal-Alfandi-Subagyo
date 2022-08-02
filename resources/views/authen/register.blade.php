@@ -22,15 +22,15 @@
                             <form action="/register" method="post">
                                 @csrf
 
-                                <input type="hidden" name="role" value="mahasiswa">
-                                
+                                <input type="hidden" name="role" value="dosen">
+
                                 <h3 class="mb-4">Sign Up</h3>
                                 <div class="form-outline mb-4">
                                     {{-- Name --}}
                                     <input type="text" id="typeNameX-2"
                                         class="form-control form-control-lg @error('name') is-invalid @enderror"
                                         name="name" value="{{ old('name') }}" required autocomplete="name"
-                                        placeholder="Nama Mahasiswa" autofocus>
+                                        placeholder="Nama" autofocus>
                                     @error('name')
                                         <span class="invalid-feedback" role="alert">
                                             {{ $message }}
@@ -50,66 +50,33 @@
                                     @enderror
                                 </div>
 
-                                {{-- make 2 column --}}
-                                <div class="row">
-                                    <div class="col-12 col-md-6">
-                                        <h3 class="mb-2">
-                                            {{-- password --}}
-                                            <input type="password" id="password"
-                                                class="form-control form-control-lg @error('password') is-invalid @enderror"
-                                                name="password" required autocomplete="new-password"
-                                                placeholder="Password">
-                                            @error('password')
-                                                <span class="invalid-feedback" role="alert">
-                                                    {{ $message }}
-                                                </span>
-                                            @enderror
-                                        </h3>
-                                    </div>
-                                    <div class="col-12 col-md-6">
-                                        <h3 class="mb-2">
-                                            <div class="form-outline mb-4">
-                                                {{-- retype Passowrd --}}
-                                                <input type="password" id="password_confirmation"
-                                                    class="form-control form-control-lg @error('password') is-invalid @enderror"
-                                                    name="password_confirmation" required autocomplete="new-password"
-                                                    placeholder="Retype Password">
-                                                @error('password')
-                                                    <span class="invalid-feedback" role="alert">
-                                                        {{ $message }}
-                                                    </span>
-                                                @enderror
-                                            </div>
-                                        </h3>
-                                    </div>
-                                </div>
-                                {{-- end make 2 column --}}
-
                                 <div class="form-outline mb-4">
-                                    {{-- Selection Kelas --}}
-                                    <select class="form-control form-control-lg @error('kelas') is-invalid @enderror"
-                                        name="kelas" id="typeKelasX-2">
-                                        <option value="">Pilih Kelas</option>
-                                        <option value=1>X</option>
-                                        <option value="XI">XI</option>
-                                        <option value="XII">XII</option>
-                                    </select>
-                                </div>
-
-                                {{-- Jenis Kelamin Select --}}
-                                <div class="form-outline mb-4">
-                                    <select class="form-control form-control-lg @error('jenis_kelamin') is-invalid @enderror"
-                                        name="jenis_kelamin" id="typeJKX-2">
-                                        <option disabled selected>Pilih Jenis Kelamin</option>
-                                        <option value="Laki-laki">Laki-laki</option>
-                                        <option value="Perempuan">Perempuan</option>
-                                    </select>
-                                    @error('jenis_kelamin')
+                                    {{-- retype Passowrd --}}
+                                    <input type="password" id="password"
+                                        class="form-control form-control-lg @error('password') is-invalid @enderror"
+                                        name="password" required autocomplete="new-password" placeholder="Password">
+                                    @error('password')
                                         <span class="invalid-feedback" role="alert">
                                             {{ $message }}
                                         </span>
                                     @enderror
                                 </div>
+
+                                <div class="form-outline mb-4">
+                                    {{-- retype Passowrd --}}
+                                    <input type="password" id="password_confirmation"
+                                        class="form-control form-control-lg @error('password') is-invalid @enderror"
+                                        name="password_confirmation" required autocomplete="new-password"
+                                        placeholder="Retype Password">
+                                    @error('password')
+                                        <span class="invalid-feedback" role="alert">
+                                            {{ $message }}
+                                        </span>
+                                    @enderror
+                                </div>
+
+
+                               
                                
 
                                 {{-- signup button --}}

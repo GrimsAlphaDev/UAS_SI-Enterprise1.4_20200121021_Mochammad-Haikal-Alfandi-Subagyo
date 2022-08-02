@@ -32,14 +32,8 @@ class AuthenticatedSessionController extends Controller
 
         $request->session()->regenerate();
 
-        // If the user role is 'dosen', redirect to the dosen dashboard.
-        if (Auth::user()->role == 'dosen') {
-            return redirect(RouteServiceProvider::Dashboard_dosen);
-        } else if 
-        // If the user role is 'mahasiswa', redirect to the mahasiswa dashboard.
-         (Auth::user()->role == 'mahasiswa') {
-            return redirect(RouteServiceProvider::Dashboard_mhs);
-        }
+            return redirect(RouteServiceProvider::HOME);
+        
     }
 
     /**
