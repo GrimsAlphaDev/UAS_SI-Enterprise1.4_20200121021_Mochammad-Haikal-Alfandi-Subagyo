@@ -1,10 +1,12 @@
 <?php
 
-use App\Http\Controllers\MahasiswaController;
+use LDAP\Result;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
-use LDAP\Result;
+use App\Http\Controllers\JadwalController;
+use App\Http\Controllers\MahasiswaController;
 use phpDocumentor\Reflection\Types\Resource_;
+use App\Http\Controllers\MatakuliahController;
 
 /*
 |--------------------------------------------------------------------------
@@ -34,6 +36,8 @@ Route::get('/logout', function(){
 Route::middleware('auth')->group(function () {
     // resouce route
     Route::resource('/mahasiswa', MahasiswaController::class);
+    Route::resource('/matakuliah', MatakuliahController::class);
+    Route::resource('/jadwal', JadwalController::class);
 });
 
 require __DIR__.'/auth.php';

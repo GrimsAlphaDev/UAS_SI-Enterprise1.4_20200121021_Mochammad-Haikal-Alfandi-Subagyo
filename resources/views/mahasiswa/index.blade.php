@@ -3,7 +3,7 @@
 @section('jumbotron', 'Mahasiswa')
 
 @section('navbarsearch')
-    <form class="navbar-form">
+    <form class="navbar-form" action="/mahasiswa">
         <div class="input-group no-border">
             <input type="text" value="" class="form-control" placeholder="Search...">
             <button type="submit" class="btn btn-default btn-round btn-just-icon">
@@ -20,12 +20,47 @@
     @if ($errors->any())
         <div class="row">
             <div class="col">
-                <div class="alert alert-danger">
+                <div class="alert alert-danger alert-dismissible fade show">
+                    <h3>Atention !</h3>
                     <ul>
                         @foreach ($errors->all() as $error)
                             <li>{{ $error }}</li>
                         @endforeach
                     </ul>
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    @endif
+
+
+    {{-- Success Notif --}}
+    @if (session()->has('success'))
+        <div class="row">
+            <div class="col">
+                <div class="alert alert-success alert-dismissible fade show">
+                    <h3>Success !</h3>
+                    <p>{{ session()->get('success') }}</p>
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    @endif
+
+    {{-- Error Notif --}}
+    @if (session()->has('error'))
+        <div class="row">
+            <div class="col">
+                <div class="alert alert-danger alert-dismissible fade show">
+                    <h3>Gagal !</h3>
+                    <p>{{ session()->get('error') }}</p>
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
                 </div>
             </div>
         </div>
@@ -36,6 +71,9 @@
             <div class="card">
                 <div class="card-header card-header-primary">
                     <h4 class="card-title ">Table Mahasiswa</h4>
+                    <p class="card-category">
+                    <p class="card-category">Berikut adalah data mahasiswa yang tersedia</p>
+                    </p>
                 </div>
 
                 <div class="card-body">
@@ -87,13 +125,19 @@
                                             {{ $mhs->email }}
                                         </td>
                                         <td>
-                                            <a href="{{ route('mahasiswa.edit', $mhs->id) }}"
-                                                class="btn btn-warning btn-sm">Edit</a>
+                                            {{-- edit mahasiswa with modal --}}
+                                            <button type="button" class="btn btn-warning btn-sm" data-toggle="modal"
+                                                data-target="#editMahasiswa{{ $mhs->id }}">
+                                                edit
+                                            </button>
+                                            {{-- delete mahasiswa --}}
                                             <form action="{{ route('mahasiswa.destroy', $mhs->id) }}" method="POST"
                                                 class="d-inline">
                                                 @csrf
                                                 @method('delete')
-                                                <button type="submit" class="btn btn-danger btn-sm">Delete</button>
+                                                <button type="submit"
+                                                    onclick="return confirm('apakah yakin ingin menghapus data {{ $mhs->nama_mahasiswa }} ? ')"
+                                                    class="btn btn-danger btn-sm">Delete</button>
                                             </form>
                                         </td>
                                     </tr>
@@ -107,7 +151,7 @@
 
     </div>
 
-    {{-- modal --}}
+    {{-- modal for insert new mahasiswa --}}
     <div class="modal fade" id="addMahasiswa" tabindex="-1" role="dialog" aria-labelledby="addMahasiswa"
         aria-hidden="true">
         <div class="modal-dialog" role="document">
@@ -124,21 +168,33 @@
                         <div class="form-group">
                             <label for="nama_mahasiswa">Nama Mahasiswa</label>
                             <input type="text" class="form-control text-dark" id="nama_mahasiswa" name="nama_mahasiswa"
-                                value="{{ old('nama') }}">
+                                value="{{ old('nama_mahasiswa') }}">
+                            @error('nama_mahasiswa')
+                                <small class="text-danger">{{ $message }}</small>
+                            @enderror
                         </div>
                         <div class="form-group">
                             <label for="alamat">Alamat</label>
                             <textarea name="alamat" id="alamat" class="form-control text-dark">{{ old('alamat') }}</textarea>
+                            @error('alamat')
+                                <small class="text-danger">{{ $message }}</small>
+                            @enderror
                         </div>
                         <div class="form-group">
                             <label for="no_tlp">No Telepon</label>
                             <input type="text" class="form-control text-dark" id="no_tlp" name="no_tlp"
                                 value="{{ old('no_tlp') }}">
+                            @error('no_tlp')
+                                <small class="text-danger">{{ $message }}</small>
+                            @enderror
                         </div>
                         <div class="form-group">
                             <label for="email">Email</label>
                             <input type="email" class="form-control text-dark" id="email" name="email"
                                 value="{{ old('email') }}">
+                            @error('email')
+                                <small class="text-danger">{{ $message }}</small>
+                            @enderror
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
@@ -150,5 +206,64 @@
         </div>
     </div>
     {{-- end modal --}}
+
+    {{-- modal for edit mahasiswa --}}
+    @foreach ($mahasiswas as $mhs)
+        <div class="modal fade" id="editMahasiswa{{ $mhs->id }}" tabindex="-1" role="dialog"
+            aria-labelledby="editMahasiswa{{ $mhs->id }}" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="editMahasiswa{{ $mhs->id }}">Edit Mahasiswa</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <form action="/mahasiswa/{{ $mhs->id }}" method="POST">
+                            @csrf
+                            @method('put')
+                            <div class="form-group">
+                                <label for="nama_mahasiswa">Nama Mahasiswa</label>
+                                <input type="text" class="form-control text-dark" id="nama_mahasiswa"
+                                    name="nama_mahasiswa" value="{{ old('nama_mahasiswa', $mhs->nama_mahasiswa) }}">
+                                @error('nama_mahasiswa')
+                                    <small class="text-danger">{{ $message }}</small>
+                                @enderror
+                            </div>
+                            <div class="form-group">
+                                <label for="alamat">Alamat</label>
+                                <textarea name="alamat" id="alamat" class="form-control text-dark">{{ old('alamat', $mhs->alamat) }}</textarea>
+                                @error('alamat')
+                                    <small class="text-danger">{{ $message }}</small>
+                                @enderror
+                            </div>
+                            <div class="form-group">
+                                <label for="no_tlp">No Telepon</label>
+                                <input type="text" class="form-control text-dark" id="no_tlp" name="no_tlp"
+                                    value="{{ old('no_tlp', $mhs->no_tlp) }}">
+                                @error('no_tlp')
+                                    <small class="text-danger">{{ $message }}</small>
+                                @enderror
+                            </div>
+                            <div class="form-group">
+                                <label for="email">Email</label>
+                                <input type="email" class="form-control text-dark" id="email" name="email"
+                                    value="{{ old('email', $mhs->email) }}">
+                                @error('email')
+                                    <small class="text-danger">{{ $message }}</small>
+                                @enderror
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                <button type="submit" class="btn btn-primary">Save</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    @endforeach
+    {{-- end modal for edit mahasiswa --}}
 
 @endsection

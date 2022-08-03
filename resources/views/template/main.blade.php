@@ -39,22 +39,16 @@
                             <p>Mahasiswa</p>
                         </a>
                     </li>
-                    <li class="nav-item ">
-                        <a class="nav-link" href="./tables.html">
-                            <i class="material-icons">content_paste</i>
-                            <p>Table List</p>
-                        </a>
-                    </li>
-                    <li class="nav-item ">
-                        <a class="nav-link" href="./typography.html">
+                    <li class="nav-item {{ (request()->is('matakuliah')) ? 'active' : '' }}">
+                        <a class="nav-link" href="/matakuliah">
                             <i class="material-icons">library_books</i>
-                            <p>Typography</p>
+                            <p>Mata Kuliah</p>
                         </a>
                     </li>
-                    <li class="nav-item ">
-                        <a class="nav-link" href="./icons.html">
-                            <i class="material-icons">bubble_chart</i>
-                            <p>Icons</p>
+                    <li class="nav-item {{ (request()->is('jadwal')) ? 'active' : '' }}">
+                        <a class="nav-link" href="/jadwal">
+                            <i class="material-icons">calendar_today</i>
+                            <p>Jadwal</p>
                         </a>
                     </li>
                     <li class="nav-item ">
@@ -373,6 +367,7 @@
 
         });
     </script>
+    
 </body>
 
 </html>

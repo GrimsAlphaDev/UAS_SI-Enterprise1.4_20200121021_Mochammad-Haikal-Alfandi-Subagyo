@@ -15,7 +15,9 @@ class MatakuliahController extends Controller
      */
     public function index()
     {
-        //
+        return view('matakuliah.index', [
+            'matakuliahs' => Matakuliah::all(),
+        ]);
     }
 
     /**
@@ -36,7 +38,29 @@ class MatakuliahController extends Controller
      */
     public function store(StoreMatakuliahRequest $request)
     {
-        //
+        // validate Request
+        $request->validate([
+            'nama_matakuliah' => 'required|max:255|unique:matakuliahs',
+            'sks' => 'required|numeric|max:20',
+        ]);
+
+        // create new Matakuliah
+        try {
+            $matakuliah = Matakuliah::create([
+                'nama_matakuliah' => $request->nama_matakuliah,
+                'sks' => $request->sks,
+            ]);
+         } catch (\Exception $e) {
+            return redirect()->back()->with('error', $e->getMessage());
+         }
+
+        // if success, redirect to index
+        if($matakuliah) {
+            return redirect()->route('matakuliah.index')->with('success', 'Matakuliah berhasil ditambahkan');
+        } else {
+            return redirect()->back()->with('error', 'Matakuliah gagal ditambahkan');
+        }
+
     }
 
     /**
@@ -70,7 +94,29 @@ class MatakuliahController extends Controller
      */
     public function update(UpdateMatakuliahRequest $request, Matakuliah $matakuliah)
     {
-        //
+        // validate Request
+        $request->validate([
+            'nama_matakuliah' => 'required|max:255|unique:matakuliahs,nama_matakuliah,'.$matakuliah->id,
+            'sks' => 'required|numeric|max:20',
+        ]);
+
+        // update Matakuliah
+        try {
+            $matakuliah->update([
+                'nama_matakuliah' => $request->nama_matakuliah,
+                'sks' => $request->sks,
+            ]);
+         } catch (\Exception $e) {
+            return redirect()->back()->with('error', $e->getMessage());
+         }
+
+        // if success, redirect to index
+        if($matakuliah) {
+            return redirect()->route('matakuliah.index')->with('success', 'Matakuliah berhasil diubah');
+        } else {
+            return redirect()->back()->with('error', 'Matakuliah gagal diubah');
+        }
+
     }
 
     /**
@@ -81,6 +127,18 @@ class MatakuliahController extends Controller
      */
     public function destroy(Matakuliah $matakuliah)
     {
-        //
+        // delete Matakuliah
+        try {
+            $matakuliah->delete();
+         } catch (\Exception $e) {
+            return redirect()->back()->with('error', $e->getMessage());
+         }
+
+        // if success, redirect to index
+        if($matakuliah) {
+            return redirect()->route('matakuliah.index')->with('success', 'Matakuliah berhasil dihapus');
+        } else {
+            return redirect()->back()->with('error', 'Matakuliah gagal dihapus');
+        }
     }
 }

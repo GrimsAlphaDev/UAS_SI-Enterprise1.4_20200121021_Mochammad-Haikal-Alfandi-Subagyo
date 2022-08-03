@@ -18,7 +18,7 @@
                 <div class="card-body">
                     <h4 class="card-title">Mahasiswa</h4>
                     <p class="card-category">
-                        <a class="text-success" href="">Pergi Ke Page Mahasiswa</a>
+                        <a class="text-success" href="/mahasiswa">Pergi Ke Page Mahasiswa</a>
                     </p>
                 </div>
                 <div class="card-footer">

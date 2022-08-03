@@ -106,7 +106,32 @@ class MahasiswaController extends Controller
      */
     public function update(UpdateMahasiswaRequest $request, Mahasiswa $mahasiswa)
     {
-        //
+        // validate request
+        $request->validate([
+            'nama_mahasiswa' => 'required|string|max:255|unique:mahasiswas,nama_mahasiswa,'.$mahasiswa->id,
+            'alamat' => 'required|string|max:255',
+            'no_tlp' => 'required|numeric',
+            'email' => 'required|string|email|max:255',
+        ]);
+
+        // update mahasiswa
+        try {
+            $mahasiswa->update([
+            'nama_mahasiswa' => $request->nama_mahasiswa,
+            'alamat' => $request->alamat,
+            'no_tlp' => $request->no_tlp,
+            'email' => $request->email,
+        ]);
+        } catch (\Exception $e) {
+            return $e->getMessage();
+        }
+
+        // if success, redirect to mahasiswa index
+        if($mahasiswa) {
+            return redirect()->route('mahasiswa.index')->with('success', 'Mahasiswa berhasil diubah');
+        } else {
+            return redirect()->back()->with('error', 'Mahasiswa gagal diubah');
+        }
     }
 
     /**
@@ -117,6 +142,18 @@ class MahasiswaController extends Controller
      */
     public function destroy(Mahasiswa $mahasiswa)
     {
-        //
+        // delete mahasiswa
+        try {
+            $mahasiswa->delete();
+        } catch (\Exception $e) {
+            return $e->getMessage();
+        }
+
+        // if success, redirect to mahasiswa index
+        if($mahasiswa) {
+            return redirect()->route('mahasiswa.index')->with('success', 'Mahasiswa berhasil dihapus');
+        } else {
+            return redirect()->back()->with('error', 'Mahasiswa gagal dihapus');
+        }
     }
 }
