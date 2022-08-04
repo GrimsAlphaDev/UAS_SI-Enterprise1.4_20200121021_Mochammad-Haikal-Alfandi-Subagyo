@@ -1,6 +1,6 @@
 @extends('../template/main')
 
-@section('jumbotron', 'Mata Kuliah')
+@section('jumbotron', 'Semester')
 
 @section('content')
 
@@ -58,15 +58,15 @@
         <div class="col">
             <div class="card">
                 <div class="card-header card-header-primary">
-                    <h4 class="card-title">Data Mata Kuliah</h4>
-                    <p class="card-category">Berikut adalah data mata kuliah yang tersedia</p>
+                    <h4 class="card-title">Data Semester</h4>
+                    <p class="card-category">Berikut adalah data semester yang tersedia</p>
                 </div>
                 <div class="card-body">
 
                     <button type="button" class="btn btn-primary btn-round float-right" data-toggle="modal"
-                        data-target="#addMatakuliah">
+                        data-target="#addSemester">
                         <i class="material-icons">add</i>
-                        <span class="card-title text-white">Tambah Matakuliah</span>
+                        <span class="card-title text-white">Tambah Semester</span>
                     </button>
 
                     <div class="table-responsive">
@@ -74,29 +74,27 @@
                             <thead class="text-primary">
                                 <tr>
                                     <th>No</th>
-                                    <th>Nama Mata Kuliah</th>
-                                    <th>SKS</th>
+                                    <th>Semester</th>
                                     <th>Aksi</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                @foreach ($matakuliahs as $matakuliah)
+                                @foreach ($semesters as $semester)
                                     <tr>
                                         <td>{{ $loop->iteration }}</td>
-                                        <td>{{ $matakuliah->nama_matakuliah }}</td>
-                                        <td>{{ $matakuliah->sks }}</td>
+                                        <td>Semester {{ $semester->semester }}</td>
                                         <td>
-                                            {{-- edit matakuliah with modal --}}
+                                            {{-- edit semester with modal --}}
                                             <button type="button" class="btn btn-warning btn-sm" data-toggle="modal"
-                                                data-target="#editMatakuliah{{ $matakuliah->id }}">
+                                                data-target="#editSemester{{ $semester->id }}">
                                                 Edit
                                             </button>
-                                            {{-- delete matakuliah --}}
-                                            <form action="/matakuliah/{{ $matakuliah->id }}" method="post"
-                                                class="d-inline">
+                                            {{-- delete Semester --}}
+                                            <form action="/semester/{{ $semester->id }}" method="post" class="d-inline">
                                                 @method('delete')
                                                 @csrf
-                                                <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('apakah yakin ingin mengapus data {{ $matakuliah->nama_matakuliah }} ?')">Delete</button>
+                                                <button type="submit" class="btn btn-danger btn-sm"
+                                                    onclick="return confirm('apakah yakin ingin mengapus Semester {{ $semester->semester }} ?')">Delete</button>
                                             </form>
                                         </td>
                                     </tr>
@@ -109,82 +107,66 @@
         </div>
     </div>
 
-    {{-- Modal Add Matakuliah --}}
-    <div class="modal fade" id="addMatakuliah" tabindex="-1" role="dialog" aria-labelledby="addMatakuliahLabel"
+    {{-- add semester with modal --}}
+    <div class="modal fade" id="addSemester" tabindex="-1" role="dialog" aria-labelledby="addSemester"
         aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="addMatakuliahLabel">Tambah Matakuliah</h5>
+                    <h5 class="modal-title" id="addSemester">Tambah Semester</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
                 <div class="modal-body">
-                    <form action="/matakuliah" method="post">
+                    <form action="/semester" method="post">
                         @csrf
                         <div class="form-group">
-                            <label for="nama_matakuliah">Nama Mata Kuliah</label>
-                            <input type="text" class="form-control text-dark" id="nama_matakuliah" name="nama_matakuliah"
-                                value="{{ old('nama_matakuliah') }}">
-                            @error('nama_matakuliah')
-                                <small class="text-danger">{{ $message }}</small>
-                            @enderror
-                        </div>
-                        <div class="form-group">
-                            <label for="sks">SKS</label>
-                            <input type="number" class="form-control text-dark" id="sks" name="sks"
-                                value="{{ old('sks') }}">
-                            @error('sks')
+                            <label for="semester">Semester</label>
+                            <input type="number" class="form-control text-dark" id="semester" name="semester"
+                                value="{{ old('semester') }}">
+                            @error('semester')
                                 <small class="text-danger">{{ $message }}</small>
                             @enderror
                         </div>
                         <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                            <button type="submit" class="btn btn-primary">Tambah</button>
+                            <button type="submit" class="btn btn-primary">Simpan</button>
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Batal</button>
                         </div>
                     </form>
                 </div>
             </div>
         </div>
     </div>
-    {{-- End of Add matakuliah Modal --}}
+    {{-- end of add semester modal --}}
 
-    {{-- Modal Edit Matakuliah --}}
-    @foreach ($matakuliahs as $matakuliah)
-        <div class="modal fade" id="editMatakuliah{{ $matakuliah->id }}" tabindex="-1" role="dialog"
-            aria-labelledby="editMatakuliahLabel" aria-hidden="true">
+    {{-- edit semester with modal --}}
+    @foreach ($semesters as $semester)
+        <div class="modal fade" id="editSemester{{ $semester->id }}" tabindex="-1" role="dialog"
+            aria-labelledby="editSemester{{ $semester->id }}" aria-hidden="true">
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title" id="editMatakuliahLabel">Edit Matakuliah</h5>
+                        <h5 class="modal-title" id="editSemester{{ $semester->id }}">Edit Semester</h5>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </button>
                     </div>
                     <div class="modal-body">
-                        <form action="/matakuliah/{{ $matakuliah->id }}" method="post">
+                        <form action="/semester/{{ $semester->id }}" method="post">
                             @csrf
-                            @method('patch')
+                            @method('put')
                             <div class="form-group">
-                                <label for="nama_matakuliah">Nama Mata Kuliah</label>
-                                <input type="text" class="form-control text-dark" id="nama_matakuliah"
-                                    name="nama_matakuliah" value="{{ $matakuliah->nama_matakuliah }}">
-                                @error('nama_matakuliah')
-                                    <small class="text-danger">{{ $message }}</small>
-                                @enderror
-                            </div>
-                            <div class="form-group">
-                                <label for="sks">SKS</label>
-                                <input type="number" class="form-control text-dark" id="sks" name="sks"
-                                    value="{{ $matakuliah->sks }}">
-                                @error('sks')
+                                <label for="semester">Semester</label>
+                                <input type="number" class="form-control text-dark" id="semester" name="semester"
+                                    value="{{ old('semester',$semester->semester) }}">
+                                @error('semester')
                                     <small class="text-danger">{{ $message }}</small>
                                 @enderror
                             </div>
                             <div class="modal-footer">
-                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                <button type="submit" class="btn btn-primary">Edit</button>
+                                <button type="submit" class="btn btn-primary">Simpan</button>
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Batal</button>
                             </div>
                         </form>
                     </div>
@@ -192,5 +174,5 @@
             </div>
         </div>
     @endforeach
-    {{-- End of Edit matakuliah Modal --}}
+    {{-- end of edit semester modal --}}
 @endsection

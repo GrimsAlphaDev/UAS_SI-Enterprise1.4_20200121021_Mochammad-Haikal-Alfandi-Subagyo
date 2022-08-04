@@ -51,16 +51,16 @@
                             <p>Jadwal</p>
                         </a>
                     </li>
-                    <li class="nav-item ">
-                        <a class="nav-link" href="./map.html">
-                            <i class="material-icons">location_ons</i>
-                            <p>Maps</p>
+                    <li class="nav-item  {{ (request()->is('semester')) ? 'active' : '' }} ">
+                        <a class="nav-link" href="/semester">
+                            <i class="material-icons">view_week</i>
+                            <p>Semester</p>
                         </a>
                     </li>
-                    <li class="nav-item ">
-                        <a class="nav-link" href="./notifications.html">
-                            <i class="material-icons">notifications</i>
-                            <p>Notifications</p>
+                    <li class="nav-item {{ (request()->is('kontrak')) ? 'active' : '' }}">
+                        <a class="nav-link" href="/kontrak">
+                            <i class="material-icons">content_paste</i>
+                            <p>Kontrak Matakuliah</p>
                         </a>
                     </li>
                 </ul>

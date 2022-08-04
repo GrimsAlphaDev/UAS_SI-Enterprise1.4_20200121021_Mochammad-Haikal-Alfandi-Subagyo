@@ -9,7 +9,10 @@ class Kontrak_matakuliah extends Model
 {
     use HasFactory;
 
-    protected $guarded = ['id'];
+    protected $fillable = [
+        'mahasiswa_id',
+        'semester_id',
+    ];
 
     public function mahasiswa()
     {

@@ -49,7 +49,7 @@
                                             <form action="/jadwal/{{ $jadwal->id }}" method="post" class="d-inline">
                                                 @method('delete')
                                                 @csrf
-                                                <button type="submit" onclick="return confirm('apakah yakin ingin menghapus data {{ $jadwal->jadwal }} ? ')" class="btn btn-danger btn-sm">Delete</button>
+                                                <button type="submit" onclick="return confirm('apakah yakin ingin menghapus jadwal {{ $jadwal->jadwal }} ? ')" class="btn btn-danger btn-sm">Delete</button>
                                             </form>
                                         </td>
                                     </tr>
@@ -141,7 +141,6 @@
             $jadwal->jam_selesai = $jadwal->jadwal[3];
             
         @endphp
-        {{-- @dd($jadwal) --}}
         
         <div class="modal fade" id="editJadwal{{ $jadwal->id }}" tabindex="-1" role="dialog"
             aria-labelledby="editJadwal{{ $jadwal->id }}" aria-hidden="true">

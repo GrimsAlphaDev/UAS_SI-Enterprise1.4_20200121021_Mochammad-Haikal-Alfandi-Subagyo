@@ -13,7 +13,7 @@ class StoreKontrak_matakuliahRequest extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return true;
     }
 
     /**

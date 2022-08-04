@@ -20,9 +20,9 @@ return new class extends Migration
             $table->foreign('mahasiswa_id')->references('id')->on('mahasiswas')
                 ->onDelete('cascade')
                 ->onUpdate('cascade');
-            // relation with matakuliah
-            $table->unsignedBigInteger('matakuliah_id');
-            $table->foreign('matakuliah_id')->references('id')->on('matakuliahs')
+            // relation with semester
+            $table->unsignedBigInteger('semester_id');
+            $table->foreign('semester_id')->references('id')->on('semesters')
                 ->onDelete('cascade')
                 ->onUpdate('cascade');
             $table->timestamps();

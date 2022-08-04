@@ -23,7 +23,8 @@
                 </div>
                 <div class="card-footer">
                     <div class="stats">
-                        <i class="material-icons">access_time</i> updated 4 minutes ago
+                        <i class="material-icons">access_time</i> 
+                       Updated  {{ $mahasiswa->updated_at->diffForHumans() }}    
                     </div>
                 </div>
             </div>
@@ -36,12 +37,13 @@
                 <div class="card-body">
                     <h4 class="card-title">Matakuliah</h4>
                     <p class="card-category">
-                        <a class="text-warning" href=""> Pergi Ke Page Matakuliah</a>
+                        <a class="text-warning" href="/matakuliah"> Pergi Ke Page Matakuliah</a>
                     </p>
                 </div>
                 <div class="card-footer">
                     <div class="stats">
-                        <i class="material-icons">access_time</i> campaign sent 2 days ago
+                        <i class="material-icons">access_time</i> 
+                        Updated  {{ $matakuliah->updated_at->diffForHumans() }}   
                     </div>
                 </div>
             </div>
@@ -53,11 +55,12 @@
                 </div>
                 <div class="card-body">
                     <h4 class="card-title">Jadwal</h4>
-                    <a class="text-danger" href=""> Pergi Ke Page Jadwal</a>
+                    <a class="text-danger" href="/jadwal"> Pergi Ke Page Jadwal</a>
                 </div>
                 <div class="card-footer">
                     <div class="stats">
-                        <i class="material-icons">access_time</i> campaign sent 2 days ago
+                        <i class="material-icons">access_time</i> 
+                        Updated  {{ $jadwal->updated_at->diffForHumans() }}   
                     </div>
                 </div>
             </div>

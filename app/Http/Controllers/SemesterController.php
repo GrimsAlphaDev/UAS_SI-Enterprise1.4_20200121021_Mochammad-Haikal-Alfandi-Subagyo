@@ -15,7 +15,8 @@ class SemesterController extends Controller
      */
     public function index()
     {
-        //
+        $semesters = Semester::all();
+        return view('semester.index', compact('semesters'));
     }
 
     /**
@@ -36,7 +37,27 @@ class SemesterController extends Controller
      */
     public function store(StoreSemesterRequest $request)
     {
-        //
+        // validate the request
+        $request->validate([
+            'semester' => 'required|unique:semesters|integer|min:1|max:12',
+        ]);
+
+        // create the semester
+        try {
+            $semester = Semester::create([
+                'semester' => $request->semester,
+            ]);
+        } catch (\Exception $e) {
+            return redirect()->back()->withErrors(['error' => $e->getMessage()]);
+        }
+
+        if($semester) {
+            return redirect()->route('semester.index')->with('success', 'Semester berhasil ditambahkan');
+        } else {
+            return redirect()->back()->withErrors(['error' => 'Semester gagal ditambahkan']);
+        }
+
+        
     }
 
     /**
@@ -70,7 +91,26 @@ class SemesterController extends Controller
      */
     public function update(UpdateSemesterRequest $request, Semester $semester)
     {
-        //
+        // validate the request
+        $request->validate([
+            'semester' => 'required|unique:semesters|integer|min:1|max:12',
+        ]);
+
+        // update the semester
+        try {
+            $semester->update([
+                'semester' => $request->semester,
+            ]);
+        } catch (\Exception $e) {
+            return redirect()->back()->withErrors(['error' => $e->getMessage()]);
+        }
+
+        if($semester) {
+            return redirect()->route('semester.index')->with('success', 'Semester berhasil diubah');
+        } else {
+            return redirect()->back()->withErrors(['error' => 'Semester gagal diubah']);
+        }
+
     }
 
     /**
@@ -80,7 +120,18 @@ class SemesterController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function destroy(Semester $semester)
-    {
-        //
+    {   
+        // delete the semester
+        try {
+            $semester->delete();
+        } catch (\Exception $e) {
+            return redirect()->back()->withErrors(['error' => $e->getMessage()]);
+        }
+
+        if($semester) {
+            return redirect()->route('semester.index')->with('success', 'Semester berhasil dihapus');
+        } else {
+            return redirect()->back()->withErrors(['error' => 'Semester gagal dihapus']);
+        }
     }
 }
