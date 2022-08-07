@@ -16,7 +16,7 @@ class MatakuliahController extends Controller
     public function index()
     {
         return view('matakuliah.index', [
-            'matakuliahs' => Matakuliah::all(),
+            'matakuliahs' => Matakuliah::paginate(10),
         ]);
     }
 

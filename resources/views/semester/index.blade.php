@@ -81,7 +81,7 @@
                             <tbody>
                                 @foreach ($semesters as $semester)
                                     <tr>
-                                        <td>{{ $loop->iteration }}</td>
+                                        <td>{{ $semesters->firstItem() + $loop->index }}</td>
                                         <td>Semester {{ $semester->semester }}</td>
                                         <td>
                                             {{-- edit semester with modal --}}
@@ -101,6 +101,8 @@
                                 @endforeach
                             </tbody>
                         </table>
+                        {{-- paginator --}}
+                        {{ $semesters->links() }}
                     </div>
                 </div>
             </div>
@@ -123,7 +125,7 @@
                         @csrf
                         <div class="form-group">
                             <label for="semester">Semester</label>
-                            <input type="number" class="form-control text-dark" id="semester" name="semester"
+                            <input required type="number" class="form-control text-dark" id="semester" name="semester"
                                 value="{{ old('semester') }}">
                             @error('semester')
                                 <small class="text-danger">{{ $message }}</small>
@@ -158,7 +160,7 @@
                             @method('put')
                             <div class="form-group">
                                 <label for="semester">Semester</label>
-                                <input type="number" class="form-control text-dark" id="semester" name="semester"
+                                <input required type="number" class="form-control text-dark" id="semester" name="semester"
                                     value="{{ old('semester',$semester->semester) }}">
                                 @error('semester')
                                     <small class="text-danger">{{ $message }}</small>

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Jadwal;
 use App\Http\Requests\StoreJadwalRequest;
 use App\Http\Requests\UpdateJadwalRequest;
+use App\Models\Matakuliah;
 
 class JadwalController extends Controller
 {
@@ -16,9 +17,13 @@ class JadwalController extends Controller
     public function index()
     {
         return view('jadwal.index', [
-            'jadwals' => Jadwal::all(),
-            'matakuliahs' => \App\Models\Matakuliah::all(),
+
+            'jadwals' => Jadwal::paginate(10),
+            // select matakuliah that dont have jadwal
+            'matakuliahs' => Matakuliah::all()->whereNotIn('id', Jadwal::pluck('matakuliah_id')),
+            'matkulselected' => Matakuliah::all(),
         ]);
+           
     }
 
     /**

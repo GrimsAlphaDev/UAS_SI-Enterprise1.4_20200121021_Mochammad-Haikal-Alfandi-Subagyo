@@ -6,7 +6,7 @@
         <meta name="description" content="" />
         <link rel="icon" href="{{ url('assets/img/Alpha.png') }}" type="image/x-icon">
         <meta name="author" content="" />
-        <title>Coming Soon - Start Bootstrap Theme</title>
+        <title>Project UAS</title>
         <!-- Font Awesome icons (free version)-->
         <script src="https://use.fontawesome.com/releases/v6.1.0/js/all.js" crossorigin="anonymous"></script>
         <!-- Google fonts-->

@@ -97,7 +97,7 @@
                                 @foreach ($kontrak_matakuliahs as $k)
                                     <tr>
                                         <td>
-                                            {{ $loop->iteration }}
+                                            {{ $kontrak_matakuliahs->firstItem() + $loop->index }}
                                         </td>
                                         <td>
                                             {{ $k->mahasiswa->nama_mahasiswa }}
@@ -133,6 +133,8 @@
                                 @endforeach
                             </tbody>
                         </table>
+                        {{-- paginator --}}
+                        {{ $kontrak_matakuliahs->links() }}
                     </div>
                 </div>
             </div>
@@ -156,7 +158,7 @@
                         @csrf
                         <div class="form-group">
                             <label for="mahasiswa">Mahasiswa</label>
-                            <select name="mahasiswa_id" id="mahasiswa" class="form-control text-dark">
+                            <select required name="mahasiswa_id" id="mahasiswa" class="form-control text-dark">
                                 <option disabled selected> -- Pilih Mahasiswa -- </option>
                                 @foreach ($mahasiswafresh as $mahasiswa)
                                     <option value="{{ $mahasiswa->id }}">{{ $mahasiswa->nama_mahasiswa }}</option>
@@ -168,7 +170,7 @@
                         </div>
                         <div class="form-group">
                             <label for="semester">Semester</label>
-                            <select name="semester_id" id="semester" class="form-control text-dark">
+                            <select required name="semester_id" id="semester" class="form-control text-dark">
                                 <option disabled selected> -- Pilih Semester -- </option>
                                 @foreach ($semesters as $s)
                                     <option value="{{ $s->id }}">{{ $s->semester }}</option>
@@ -210,7 +212,7 @@
 
                             <div class="form-group">
                                 <label for="mahasiswa">Mahasiswa</label>
-                                <select name="mahasiswa_id" id="mahasiswa" class="form-control text-dark">
+                                <select required name="mahasiswa_id" id="mahasiswa" class="form-control text-dark">
                                     <option disabled selected> -- Pilih Mahasiswa -- </option>
                                     @foreach ($mahasiswas as $mahasiswa)
                                         @if ($mahasiswa->id == $kontrak->mahasiswa_id)
@@ -230,7 +232,7 @@
                                 <label
                                     for="semester
                                 {{ $kontrak->semester_id }}">Semester</label>
-                                <select name="semester_id" id="semester" class="form-control text-dark">
+                                <select required name="semester_id" id="semester" class="form-control text-dark">
                                     <option disabled selected> -- Pilih Semester -- </option>
                                     @foreach ($semesters as $s)
                                         <option value="{{ $s->id }}"

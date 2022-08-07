@@ -82,7 +82,7 @@
                             <tbody>
                                 @foreach ($matakuliahs as $matakuliah)
                                     <tr>
-                                        <td>{{ $loop->iteration }}</td>
+                                        <td>{{ $matakuliahs->firstItem() + $loop->index }}</td>
                                         <td>{{ $matakuliah->nama_matakuliah }}</td>
                                         <td>{{ $matakuliah->sks }}</td>
                                         <td>
@@ -103,6 +103,8 @@
                                 @endforeach
                             </tbody>
                         </table>
+                        {{-- paginator --}}
+                        {{ $matakuliahs->links() }}
                     </div>
                 </div>
             </div>
@@ -125,7 +127,7 @@
                         @csrf
                         <div class="form-group">
                             <label for="nama_matakuliah">Nama Mata Kuliah</label>
-                            <input type="text" class="form-control text-dark" id="nama_matakuliah" name="nama_matakuliah"
+                            <input required type="text" class="form-control text-dark" id="nama_matakuliah" name="nama_matakuliah"
                                 value="{{ old('nama_matakuliah') }}">
                             @error('nama_matakuliah')
                                 <small class="text-danger">{{ $message }}</small>
@@ -133,7 +135,7 @@
                         </div>
                         <div class="form-group">
                             <label for="sks">SKS</label>
-                            <input type="number" class="form-control text-dark" id="sks" name="sks"
+                            <input required type="number" class="form-control text-dark" id="sks" name="sks"
                                 value="{{ old('sks') }}">
                             @error('sks')
                                 <small class="text-danger">{{ $message }}</small>
@@ -168,7 +170,7 @@
                             @method('patch')
                             <div class="form-group">
                                 <label for="nama_matakuliah">Nama Mata Kuliah</label>
-                                <input type="text" class="form-control text-dark" id="nama_matakuliah"
+                                <input required type="text" class="form-control text-dark" id="nama_matakuliah"
                                     name="nama_matakuliah" value="{{ $matakuliah->nama_matakuliah }}">
                                 @error('nama_matakuliah')
                                     <small class="text-danger">{{ $message }}</small>
@@ -176,7 +178,7 @@
                             </div>
                             <div class="form-group">
                                 <label for="sks">SKS</label>
-                                <input type="number" class="form-control text-dark" id="sks" name="sks"
+                                <input required type="number" class="form-control text-dark" id="sks" name="sks"
                                     value="{{ $matakuliah->sks }}">
                                 @error('sks')
                                     <small class="text-danger">{{ $message }}</small>

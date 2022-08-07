@@ -19,7 +19,7 @@ class KontrakMatakuliahController extends Controller
      */
     public function index()
     {
-        $kontrak_matakuliahs = Kontrak_matakuliah::all();
+        $kontrak_matakuliahs = Kontrak_matakuliah::paginate(10);
         $mahasiswas = Mahasiswa::all();
         $semesters = Semester::all();
         $mahasiswafresh = Mahasiswa::whereNotIn('id', function ($query) {

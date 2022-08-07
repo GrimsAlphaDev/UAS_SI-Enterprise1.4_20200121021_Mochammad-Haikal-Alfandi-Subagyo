@@ -3,8 +3,13 @@
 namespace App\Http\Controllers;
 
 use App\Models\Absen;
+use App\Models\Mahasiswa;
 use App\Http\Requests\StoreAbsenRequest;
 use App\Http\Requests\UpdateAbsenRequest;
+use App\Models\Matakuliah;
+use Illuminate\Http\Client\Request as ClientRequest;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Request as FacadesRequest;
 
 class AbsenController extends Controller
 {
@@ -15,7 +20,8 @@ class AbsenController extends Controller
      */
     public function index()
     {
-        //
+        $matakuliahs = Matakuliah::all();
+        return view('absen.index', compact('matakuliahs'));
     }
 
     /**
@@ -36,7 +42,27 @@ class AbsenController extends Controller
      */
     public function store(StoreAbsenRequest $request)
     {
-        //
+        // validate request
+        $request->validate([
+            'mahasiswa_id' => 'required',
+            'matakuliah_id' => 'required',
+            'waktu_absen' => 'required',
+            'keterangan' => 'required',
+        ]);
+        // create new absen
+        $absen = Absen::create([
+            'mahasiswa_id' => $request->mahasiswa_id,
+            'matakuliah_id' => $request->matakuliah_id,
+            'waktu_absen' => $request->waktu_absen,
+            'keterangan' => $request->keterangan,
+        ]);
+        
+        if ($absen) {
+            return redirect()->back()->with('success', 'Data absen berhasil ditambahkan');
+        } else {
+            return redirect()->back()->with('error', 'Data absen gagal ditambahkan');
+        }
+
     }
 
     /**
@@ -45,9 +71,11 @@ class AbsenController extends Controller
      * @param  \App\Models\Absen  $absen
      * @return \Illuminate\Http\Response
      */
-    public function show(Absen $absen)
+    public function show( Absen $absen)
     {
-        //
+        // get id from url
+        $req = Request::capture();
+        return $req;
     }
 
     /**
@@ -56,9 +84,9 @@ class AbsenController extends Controller
      * @param  \App\Models\Absen  $absen
      * @return \Illuminate\Http\Response
      */
-    public function edit(Absen $absen)
+    public function edit(Absen $absen, Request $req)
     {
-        //
+        return $req->route('id');
     }
 
     /**
@@ -83,4 +111,10 @@ class AbsenController extends Controller
     {
         //
     }
+
+    
+
+
+
+   
 }

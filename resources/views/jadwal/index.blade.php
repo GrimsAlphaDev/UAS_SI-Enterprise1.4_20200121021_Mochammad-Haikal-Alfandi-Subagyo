@@ -37,8 +37,8 @@
                             <tbody>
                                 @foreach ($jadwals as $jadwal)
                                     <tr>
-                                        <td>{{ $loop->iteration }}</td>
-                                        <td>{{ $jadwal->jadwal }}</td>
+                                        <td>{{ $jadwals->firstItem() + $loop->index }}</td>
+                                        <td><b>{{ $jadwal->jadwal }}</b></td>
                                         <td>{{ $jadwal->matakuliah->nama_matakuliah }}</td>
                                         <td>{{ $jadwal->matakuliah->sks }}</td>
                                         <td>
@@ -49,12 +49,16 @@
                                             <form action="/jadwal/{{ $jadwal->id }}" method="post" class="d-inline">
                                                 @method('delete')
                                                 @csrf
-                                                <button type="submit" onclick="return confirm('apakah yakin ingin menghapus jadwal {{ $jadwal->jadwal }} ? ')" class="btn btn-danger btn-sm">Delete</button>
+                                                <button type="submit"
+                                                    onclick="return confirm('apakah yakin ingin menghapus jadwal {{ $jadwal->jadwal }} ? ')"
+                                                    class="btn btn-danger btn-sm">Delete</button>
                                             </form>
                                         </td>
                                     </tr>
                                 @endforeach
                             </tbody>
+                            {{-- paginator --}}
+                            {{ $jadwals->links() }}
                         </table>
                     </div>
                 </div>
@@ -78,7 +82,7 @@
                         <div class="form-group">
                             <label for="hari" class="mb-2">Hari</label>
                             {{-- selection --}}
-                            <select name="hari" id="hari" class="form-control text-dark">
+                            <select required name="hari" id="hari" class="form-control text-dark">
                                 <option disabled selected> -- Pilih Hari --</option>
                                 <option value="Senin">Senin</option>
                                 <option value="Selasa">Selasa</option>
@@ -93,7 +97,7 @@
                         </div>
                         <div class="form-group">
                             <label for="jam_mulai" class="mb-2">Jam Mulai</label>
-                            <input type="time" class="form-control text-dark" id="jam_mulai" name="jam_mulai"
+                            <input required type="time" class="form-control text-dark" id="jam_mulai" name="jam_mulai"
                                 min="07:00" max="18:00" value="{{ old('jam_mulai') }}">
                             @error('jam_mulai')
                                 <small class="text-danger">{{ $message }}</small>
@@ -101,15 +105,15 @@
                         </div>
                         <div class="form-group">
                             <label for="jam_selesai" class="mb-2">Jam Selesai</label>
-                            <input type="time" class="form-control text-dark" id="jam_selesai" name="jam_selesai"
-                                min="07:00" max="18:00" value="{{ old('jam_selesai') }}">
+                            <input required type="time" class="form-control text-dark" id="jam_selesai"
+                                name="jam_selesai" min="07:00" max="18:00" value="{{ old('jam_selesai') }}">
                             @error('jam_selesai')
                                 <small class="text-danger">{{ $message }}</small>
                             @enderror
                         </div>
                         <div class="form-group">
                             <label for="matakuliah_id">Matakuliah</label>
-                            <select class="form-control text-dark" id="matakuliah_id" name="matakuliah_id">
+                            <select required class="form-control text-dark" id="matakuliah_id" name="matakuliah_id">
                                 <option disabled selected>-- Pilih Matakuliah --</option>
                                 @foreach ($matakuliahs as $matakuliah)
                                     <option value="{{ $matakuliah->id }}">{{ $matakuliah->nama_matakuliah }}</option>
@@ -141,7 +145,7 @@
             $jadwal->jam_selesai = $jadwal->jadwal[3];
             
         @endphp
-        
+
         <div class="modal fade" id="editJadwal{{ $jadwal->id }}" tabindex="-1" role="dialog"
             aria-labelledby="editJadwal{{ $jadwal->id }}" aria-hidden="true">
             <div class="modal-dialog" role="document">
@@ -159,7 +163,7 @@
                             <div class="form-group">
                                 <label for="hari" class="mb-2">Hari</label>
                                 {{-- selection --}}
-                                <select name="hari" id="hari" class="form-control text-dark">
+                                <select required name="hari" id="hari" class="form-control text-dark">
                                     <option disabled selected> -- Pilih Hari --</option>
                                     <option value="Senin" {{ $jadwal->hari == 'Senin' ? 'selected' : '' }}>Senin</option>
                                     <option value="Selasa" {{ $jadwal->hari == 'Selasa' ? 'selected' : '' }}>Selasa
@@ -175,27 +179,34 @@
                             </div>
                             <div class="form-group">
                                 <label for="jam_mulai" class="mb-2">Jam Mulai</label>
-                                <input type="time" class="form-control text-dark" id="jam_mulai" name="jam_mulai"
-                                    min="07:00" max="18:00" value="{{ $jadwal->jam_mulai }}">
+                                <input required type="time" class="form-control text-dark" id="jam_mulai"
+                                    name="jam_mulai" min="07:00" max="18:00" value="{{ $jadwal->jam_mulai }}">
                                 @error('jam_mulai')
                                     <small class="text-danger">{{ $message }}</small>
                                 @enderror
                             </div>
                             <div class="form-group">
                                 <label for="jam_selesai" class="mb-2">Jam Selesai</label>
-                                <input type="time" class="form-control text-dark" id="jam_selesai" name="jam_selesai"
-                                    min="07:00" max="18:00" value="{{ $jadwal->jam_selesai }}">
+                                <input required type="time" class="form-control text-dark" id="jam_selesai"
+                                    name="jam_selesai" min="07:00" max="18:00"
+                                    value="{{ $jadwal->jam_selesai }}">
                                 @error('jam_selesai')
                                     <small class="text-danger">{{ $message }}</small>
                                 @enderror
                             </div>
                             <div class="form-group">
                                 <label for="matakuliah_id">Matakuliah</label>
-                                <select class="form-control text-dark" id="matakuliah_id" name="matakuliah_id">
+                                <select required class="form-control text-dark" id="matakuliah_id" name="matakuliah_id">
                                     <option disabled selected>-- Pilih Matakuliah --</option>
+                                    @foreach ($matkulselected as $select)
+                                        @if ($select->nama_matakuliah == $jadwal->matakuliah->nama_matakuliah)
+                                            <option value="{{ $select->id }}" selected>
+                                                {{ $select->nama_matakuliah }}
+                                            </option>
+                                        @endif
+                                    @endforeach
                                     @foreach ($matakuliahs as $matakuliah)
-                                        <option value="{{ $matakuliah->id }}"
-                                            {{ $jadwal->matakuliah_id == $matakuliah->id ? 'selected' : '' }}>
+                                        <option value="{{ $matakuliah->id }}">
                                             {{ $matakuliah->nama_matakuliah }}</option>
                                     @endforeach
                                 </select>

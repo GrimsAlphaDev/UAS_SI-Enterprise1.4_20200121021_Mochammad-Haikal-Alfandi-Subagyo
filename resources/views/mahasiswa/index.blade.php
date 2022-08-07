@@ -1,18 +1,8 @@
+
 @extends('../template/main')
 
 @section('jumbotron', 'Mahasiswa')
 
-@section('navbarsearch')
-    <form class="navbar-form" action="/mahasiswa">
-        <div class="input-group no-border">
-            <input type="text" value="" class="form-control" placeholder="Search...">
-            <button type="submit" class="btn btn-default btn-round btn-just-icon">
-                <i class="material-icons">search</i>
-                <div class="ripple-container"></div>
-            </button>
-        </div>
-    </form>
-@endsection
 
 @section('content')
 
@@ -65,7 +55,7 @@
             </div>
         </div>
     @endif
-
+    
     <div class="row">
         <div class="col-md-12">
             <div class="card">
@@ -110,7 +100,7 @@
                                 @foreach ($mahasiswas as $mhs)
                                     <tr>
                                         <td>
-                                            {{ $loop->iteration }}
+                                            {{ $mahasiswas->firstItem() + $loop->index }}
                                         </td>
                                         <td>
                                             {{ $mhs->nama_mahasiswa }}
@@ -144,6 +134,8 @@
                                 @endforeach
                             </tbody>
                         </table>
+                        {{-- paginator --}}
+                        {{ $mahasiswas->links() }}
                     </div>
                 </div>
             </div>
@@ -167,7 +159,7 @@
                         @csrf
                         <div class="form-group">
                             <label for="nama_mahasiswa">Nama Mahasiswa</label>
-                            <input type="text" class="form-control text-dark" id="nama_mahasiswa" name="nama_mahasiswa"
+                            <input required type="text" class="form-control text-dark" id="nama_mahasiswa" name="nama_mahasiswa"
                                 value="{{ old('nama_mahasiswa') }}">
                             @error('nama_mahasiswa')
                                 <small class="text-danger">{{ $message }}</small>
@@ -175,14 +167,14 @@
                         </div>
                         <div class="form-group">
                             <label for="alamat">Alamat</label>
-                            <textarea name="alamat" id="alamat" class="form-control text-dark">{{ old('alamat') }}</textarea>
+                            <textarea required name="alamat" id="alamat" class="form-control text-dark">{{ old('alamat') }}</textarea>
                             @error('alamat')
                                 <small class="text-danger">{{ $message }}</small>
                             @enderror
                         </div>
                         <div class="form-group">
                             <label for="no_tlp">No Telepon</label>
-                            <input type="text" class="form-control text-dark" id="no_tlp" name="no_tlp"
+                            <input required type="text" class="form-control text-dark" id="no_tlp" name="no_tlp"
                                 value="{{ old('no_tlp') }}">
                             @error('no_tlp')
                                 <small class="text-danger">{{ $message }}</small>
@@ -190,7 +182,7 @@
                         </div>
                         <div class="form-group">
                             <label for="email">Email</label>
-                            <input type="email" class="form-control text-dark" id="email" name="email"
+                            <input required type="email" class="form-control text-dark" id="email" name="email"
                                 value="{{ old('email') }}">
                             @error('email')
                                 <small class="text-danger">{{ $message }}</small>
@@ -225,7 +217,7 @@
                             @method('put')
                             <div class="form-group">
                                 <label for="nama_mahasiswa">Nama Mahasiswa</label>
-                                <input type="text" class="form-control text-dark" id="nama_mahasiswa"
+                                <input required type="text" class="form-control text-dark" id="nama_mahasiswa"
                                     name="nama_mahasiswa" value="{{ old('nama_mahasiswa', $mhs->nama_mahasiswa) }}">
                                 @error('nama_mahasiswa')
                                     <small class="text-danger">{{ $message }}</small>
@@ -233,14 +225,14 @@
                             </div>
                             <div class="form-group">
                                 <label for="alamat">Alamat</label>
-                                <textarea name="alamat" id="alamat" class="form-control text-dark">{{ old('alamat', $mhs->alamat) }}</textarea>
+                                <textarea required name="alamat" id="alamat" class="form-control text-dark">{{ old('alamat', $mhs->alamat) }}</textarea>
                                 @error('alamat')
                                     <small class="text-danger">{{ $message }}</small>
                                 @enderror
                             </div>
                             <div class="form-group">
                                 <label for="no_tlp">No Telepon</label>
-                                <input type="text" class="form-control text-dark" id="no_tlp" name="no_tlp"
+                                <input required type="text" class="form-control text-dark" id="no_tlp" name="no_tlp"
                                     value="{{ old('no_tlp', $mhs->no_tlp) }}">
                                 @error('no_tlp')
                                     <small class="text-danger">{{ $message }}</small>
@@ -248,7 +240,7 @@
                             </div>
                             <div class="form-group">
                                 <label for="email">Email</label>
-                                <input type="email" class="form-control text-dark" id="email" name="email"
+                                <input required type="email" class="form-control text-dark" id="email" name="email"
                                     value="{{ old('email', $mhs->email) }}">
                                 @error('email')
                                     <small class="text-danger">{{ $message }}</small>

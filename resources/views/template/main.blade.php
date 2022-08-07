@@ -34,7 +34,7 @@
                         </a>
                     </li>
                     <li class="nav-item {{ (request()->is('mahasiswa')) ? 'active' : '' }}">
-                        <a class="nav-link" href="mahasiswa">
+                        <a class="nav-link" href="/mahasiswa">
                             <i class="material-icons">person</i>
                             <p>Mahasiswa</p>
                         </a>
@@ -63,6 +63,11 @@
                             <p>Kontrak Matakuliah</p>
                         </a>
                     </li>
+                    <li class="nav-item {{ (request()->is('absen*') ) ? 'active' : '' }} {{ (request()->is('getabsen*') ) ? 'active' : '' }}">
+                        <a class="nav-link" href="/absen">
+                            <i class="material-icons">check_circle_outline</i>
+                            <p>Absen</p>
+                        </a>
                 </ul>
             </div>
         </div>
