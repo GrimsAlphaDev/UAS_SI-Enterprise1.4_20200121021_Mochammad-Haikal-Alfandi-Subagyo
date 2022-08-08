@@ -23,7 +23,7 @@ class MahasiswaController extends Controller
     {
         return view('mahasiswa.index', [
             'mahasiswas' => Mahasiswa::paginate(10),
-        ]);
+        ]); 
     }
 
     /**
