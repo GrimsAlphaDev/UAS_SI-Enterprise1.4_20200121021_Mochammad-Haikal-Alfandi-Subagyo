@@ -21,12 +21,15 @@
                         <a class="text-success" href="/mahasiswa">Pergi Ke Page Mahasiswa</a>
                     </p>
                 </div>
+                @if (isset($mahasiswa))
                 <div class="card-footer">
                     <div class="stats">
                         <i class="material-icons">access_time</i> 
-                       Updated  {{ $mahasiswa->updated_at->diffForHumans() }}    
+                       Updated  
+                       {{ $mahasiswa->updated_at->diffForHumans() }}  
                     </div>
                 </div>
+                @endif
             </div>
         </div>
         <div class="col-xl-4 col-lg-12">
@@ -40,12 +43,14 @@
                         <a class="text-warning" href="/matakuliah"> Pergi Ke Page Matakuliah</a>
                     </p>
                 </div>
+                @if (isset($matakuliah))
                 <div class="card-footer">
                     <div class="stats">
                         <i class="material-icons">access_time</i> 
                         Updated  {{ $matakuliah->updated_at->diffForHumans() }}   
                     </div>
                 </div>
+                @endif
             </div>
         </div>
         <div class="col-xl-4 col-lg-12">
@@ -57,12 +62,14 @@
                     <h4 class="card-title">Jadwal</h4>
                     <a class="text-danger" href="/jadwal"> Pergi Ke Page Jadwal</a>
                 </div>
+                @if (isset($jadwal))
                 <div class="card-footer">
                     <div class="stats">
                         <i class="material-icons">access_time</i> 
                         Updated  {{ $jadwal->updated_at->diffForHumans() }}   
                     </div>
                 </div>
+                @endif
             </div>
         </div>
     </div>

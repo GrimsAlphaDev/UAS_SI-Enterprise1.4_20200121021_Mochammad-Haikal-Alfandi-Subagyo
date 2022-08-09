@@ -58,7 +58,7 @@
         <div class="col">
             <div class="card">
                 <div class="card-header card-header-primary">
-                    <h4 class="card-title">Absen Mata Kuliah {{ $matakuliah->nama_matakuliah }}</h4>
+                    <h4 class="card-title">Absen Mata Kuliah <b>{{ $matakuliah->nama_matakuliah }}</b></h4>
                     <p class="card-category">Absen Mahasiswa</p>
                 </div>
 
@@ -69,6 +69,12 @@
                         <i class="material-icons">add</i>
                         <span>Absen</span>
                     </button>
+
+                    {{-- back button --}}
+                    <a href="{{ url('/absen') }}" class="btn btn-danger float-right mr-2">
+                        <i class="material-icons">arrow_back</i>
+                        <span>Kembali</span>
+                    </a>
 
 
                     <div class="table-responsive">
@@ -116,7 +122,7 @@
                     <form action="{{ route('absen.store') }}" method="POST">
                         @csrf
 
-                        <input type="hidden" name="matakuliah_id" value="{{ $matakuliah->id }}">
+                        <input required type="hidden" name="matakuliah_id" value="{{ $matakuliah->id }}">
 
                         <div class="form-group">
                             <label for="mahasiswa_id">Nama Mahasiswa</label>
@@ -139,7 +145,7 @@
                         </div>
                         <div class="form-group">
                             <label for="waktu_absen">Waktu Absen</label>
-                            <input type="datetime-local" name="waktu_absen" id="waktu_absen" class="form-control text-dark">
+                            <input required type="datetime-local" name="waktu_absen" id="waktu_absen" class="form-control text-dark">
                         </div>
                         <div class="form-group">
                             <button type="submit" class="btn btn-primary">

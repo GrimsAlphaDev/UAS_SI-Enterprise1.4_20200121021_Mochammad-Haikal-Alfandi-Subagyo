@@ -102,7 +102,7 @@
 
                             <li class="nav-item">
                                 {{-- dropdown logout menu --}}
-                                <a class="nav-link" href="{{ route('logout') }}" onclick="return confirm('yakin ?')">
+                                <a class="nav-link" href="{{ route('logout') }}" onclick="return confirm('yakin ingin logout ?')">
                                     <i class="material-icons ">exit_to_app</i> 
                                     <p class="d-block d-inline-flex">Logout</p>
                                 </a>
